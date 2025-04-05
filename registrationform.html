@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab2</title>
+    <link rel="C:\Users\USER\OneDrive - American International University-Bangladesh\Pictures\Bird.png" type="image/x-icon"> <!-- Add your favicon here -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <img src="C:\Users\USER\OneDrive - American International University-Bangladesh\Pictures\Bird.png" style="width: auto; height: auto;">
+   
+    <h1 style="text-align:center;">Registration</h1>
+ 
+    <div class="flex-container">
+
+            
+
+        <div style="background-color: red; height: 500px; width: 250px;">
+            <h1>Registration Form</h1>
+            <form>
+            <input type = "text" name = "FullName" placeholder="FULL NAME"><br>
+            <input type = "email" name = "umail" placeholder="User Email"><br>
+            <input type = "password" name = "pass" placeholder="Password"><br>
+            <input type = "Confirm password" name = "cp" placeholder="Confirm Password"><br>
+            <label type = "dob" >DOB:</label></br>
+            <input type ="text" id = "dob" name = "dob"></br>
+            <label for="Gender">Gender:</label></br>
+             Male<input type = "radio" name = "gender" value="Male">
+             Female<input type = "radio" name = "gender" value="Female">
+             <label for="Country">Country:</label><br>
+                    <select id="Country" name="Country">
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Germany">Germany</option>
+                    </select><br>
+ 
+            </form>
+        </div>
+        <div class="column">
+            <div style="background-color: rgba(50, 169, 11, 0.86); height: 250px; width: 250px;"></div>
+            <div style="background-color: blue; height: 250px; width: 250px;"></div>
+    </div>
+</div>
+</body>
+</html>
+ 
