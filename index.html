@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="icon" href="C:\Users\Asus\Downloads\anlogo.jpg" type="image/x-icon">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flex-container h1 {
+            text-align: center;
+        }
+        .flex-container form {
+            padding-left: 30px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 2px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white;">Hotel Sea Gull</h1>
+    <div class="flex-container">
+        <div style="background-color: hwb(235 0% 0%); height: 650px; width: 450px; padding: 20px; border-radius: 10px;">
+            <h1 style="color: white;">Sign in</h1>
+            <form id="registrationForm" action="process.php" method="post">
+                <b><label for="username" style="align-self: flex-start;">Full Name:</label></b><br>
+                <input type="text" name="username" placeholder="FULL NAME" id="username" style="width: 60%; padding: 3px; margin-bottom: 9px;"><br>
+                <span class="error-message" id="nameError"></span>
+
+                <b><label for="email" style="align-self: flex-start;">Email:</label></b><br>
+                <input type="email" name="email" placeholder="User Email" id="email" style="width: 60%; padding: 3px; margin-bottom: 9px;"><br>
+                <span class="error-message" id="emailError"></span>
+
+                <b><label for="password">Password:</label></b><br>
+                <input type="password" name="pass" placeholder="Password" id="password" style="width: 60%; padding: 3px; margin-bottom: 9px;"><br>
+                <span class="error-message" id="passwordError"></span>
+
+                <b><label for="cp">Confirm Password:</label></b><br>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" id="cp" style="width: 60%; padding: 3px; margin-bottom: 9px;"><br>
+                <span class="error-message" id="cpasswordError"></span>
+
+                <b><label for="dob">Date of Birth:</label></b><br>
+                <input type="date" id="dob" name="dob" style="width: 50%; padding: 3px; margin-bottom: 9px;"><br>
+                <span class="error-message" id="dobError"></span>
+
+                <b><label for="country">Country:</label></b><br>
+                <select id="country" name="country" style="width: 50%; padding: 3px; margin-bottom: 9px;">
+                    <option value="Select Country">Select Country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="other">Other</option>
+                </select><br>
+                <span class="error-message" id="countryError"></span>
+
+                <b><label for="gender">Gender:</label></b><br>
+                <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                    <input type="radio" name="gender" value="Male" id="genderMale">
+                    <label for="genderMale">Male</label>
+                    <input type="radio" name="gender" value="Female" id="genderFemale">
+                    <label for="genderFemale">Female</label>
+                </div>
+                <span class="error-message" id="genderError"></span>
+
+                <div style="margin-bottom: 9px;">
+                    <input type="checkbox" id="terms" name="terms">
+                    <label for="terms">I agree to the terms and conditions</label><br>
+                </div>
+                <span class="error-message" id="termsError"></span>
+
+                <input type="submit" value="Submit" style="border-radius: 6px; margin-top: 10px; font-weight: bold; font-size: 14px; color: brown; margin-left: 125px; padding: 4px 50px;"><br>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registrationForm');
+            const submitButton = document.querySelector('input[type="submit"]');
+
+            submitButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                let isValid = true;
+
+                document.querySelectorAll('.error-message').forEach(span => {
+                    span.textContent = '';
+                });
+
+                const fullName = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('cp').value;
+                const birthDateValue = document.getElementById('dob').value;
+                const country = document.getElementById('country').value;
+                const gender = document.querySelector('input[name="gender"]:checked');
+                const terms = document.getElementById('terms').checked;
+
+                const namePattern = /^[a-zA-Z\s]+$/;
+                if (!namePattern.test(fullName)) {
+                    document.getElementById("nameError").textContent = "Write a valid Name";
+                    isValid = false;
+                }
+
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailPattern.test(email)) {
+                    document.getElementById("emailError").textContent = "Please enter a valid email address";
+                    isValid = false;
+                }
+
+                if (password.length < 8) {
+                    document.getElementById("passwordError").textContent = "Password must be at least 8 characters long";
+                    isValid = false;
+                }
+
+                if (confirmPassword === "") {
+                    document.getElementById("cpasswordError").textContent = "Please confirm your password.";
+                    isValid = false;
+                } else if (password !== confirmPassword) {
+                    document.getElementById("cpasswordError").textContent = "Passwords do not match.";
+                    isValid = false;
+                }
+
+                const birthDate = new Date(birthDateValue);
+                const currentDate = new Date();
+                let age = currentDate.getFullYear() - birthDate.getFullYear();
+                const m = currentDate.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && currentDate.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if (!birthDateValue || isNaN(birthDate) || age < 18) {
+                    document.getElementById("dobError").textContent = "You must be at least 18 years old";
+                    isValid = false;
+                }
+
+                if (country === "Select Country") {
+                    document.getElementById("countryError").textContent = "Please select your Country";
+                    isValid = false;
+                }
+
+                if (!gender) {
+                    document.getElementById("genderError").textContent = "Please select your Gender";
+                    isValid = false;
+                }
+
+                if (!terms) {
+                    document.getElementById("termsError").textContent = "You must agree to the terms and conditions";
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    alert('Registration Successful!');
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
